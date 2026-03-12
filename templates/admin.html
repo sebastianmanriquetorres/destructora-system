@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Panel Seguridad</title>
+</head>
+
+<body>
+
+<h2>Panel Seguridad</h2>
+
+<button onclick="cargar()">Actualizar</button>
+
+<table border="1">
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Solicitante</th>
+<th>Estado</th>
+<th>Accion</th>
+</tr>
+</thead>
+
+<tbody id="tabla"></tbody>
+
+</table>
+
+<script>
+
+async function cargar(){
+
+const res = await fetch("/solicitudes")
+const data = await res.json()
+
+let html=""
+
+data.forEach(s=>{
+
+html+=`
+<tr>
+
+<td>${s.id}</td>
+<td>${s.solicitante}</td>
+<td>${s.estado}</td>
+
+<td>
+
+<button onclick="aprobar(${s.id})">Aprobar</button>
+<button onclick="rechazar(${s.id})">Rechazar</button>
+
+</td>
+
+</tr>
+`
+
+})
+
+document.getElementById("tabla").innerHTML=html
+
+}
+
+async function aprobar(id){
+
+await fetch(`/aprobar/${id}`,{method:"POST"})
+cargar()
+
+}
+
+async function rechazar(id){
+
+await fetch(`/rechazar/${id}`,{method:"POST"})
+cargar()
+
+}
+
+cargar()
+
+</script>
+
+</body>
+</html>
