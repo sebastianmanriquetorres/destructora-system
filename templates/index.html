@@ -1,32 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Solicitud Destructora</title>
-</head>
-
-<body>
-
-<h2>Solicitar Destructora</h2>
-
 <form id="formSolicitud">
 
-<input type="text" id="solicitante" placeholder="Nombre" required>
+<input type="text" id="nombre_apellido" placeholder="Nombre y Apellido" required>
+
+<input type="number" id="cedula" placeholder="Cédula" required>
+
 <input type="email" id="correo" placeholder="Correo" required>
-<input type="text" id="dependencia" placeholder="Dependencia" required>
 
-<label>Inicio</label>
-<input type="datetime-local" id="inicio" required>
+<input type="text" id="cargo" placeholder="Cargo" required>
 
-<label>Fin</label>
-<input type="datetime-local" id="fin" required>
+<input type="text" id="proceso" placeholder="Proceso" required>
 
-<textarea id="motivo" placeholder="Motivo"></textarea>
+<label>Fecha Inicio</label>
+<input type="date" id="fecha_inicio" required>
 
-<button type="submit">Enviar solicitud</button>
+<label>Hora Inicio</label>
+<input type="time" id="hora_inicio" required>
+
+<label>Fecha Fin</label>
+<input type="date" id="fecha_fin" required>
+
+<label>Hora Fin</label>
+<input type="time" id="hora_fin" required>
+
+<button type="submit">Enviar</button>
 
 </form>
 
-<script src="/static/script.js"></script>
+<script>
 
-</body>
-</html>
+document.getElementById("formSolicitud").addEventListener("submit", async function(e){
+
+e.preventDefault()
+
+const data = {
+nombre_apellido: document.getElementById("nombre_apellido").value,
+cedula: document.getElementById("cedula").value,
+correo: document.getElementById("correo").value,
+cargo: document.getElementById("cargo").value,
+proceso: document.getElementById("proceso").value,
+fecha_inicio: document.getElementById("fecha_inicio").value,
+hora_inicio: document.getElementById("hora_inicio").value,
+fecha_fin: document.getElementById("fecha_fin").value,
+hora_fin: document.getElementById("hora_fin").value
+}
+
+await fetch("/solicitudes", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify(data)
+})
+
+alert("Solicitud enviada")
+})
+
+</script>

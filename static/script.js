@@ -6,7 +6,7 @@ const data = {
 
 solicitante: document.getElementById("solicitante").value,
 correo: document.getElementById("correo").value,
-dependencia: document.getElementById("dependencia").value,
+cargo: document.getElementById("cargo").value,
 fecha_inicio: document.getElementById("inicio").value,
 fecha_fin: document.getElementById("fin").value,
 motivo: document.getElementById("motivo").value

@@ -1,15 +1,22 @@
 from sqlalchemy import Column, Integer, String
 from .database import Base
 
-
 class Solicitud(Base):
     __tablename__ = "solicitudes"
 
     id = Column(Integer, primary_key=True, index=True)
-    solicitante = Column(String)
+
+    nombre_apellido = Column(String)
+    cedula = Column(String)
     correo = Column(String)
-    dependencia = Column(String)
+    cargo = Column(String)
+    proceso = Column(String)
+
     fecha_inicio = Column(String)
+    hora_inicio = Column(String)
+
     fecha_fin = Column(String)
-    motivo = Column(String)
-    estado = Column(String, default="pendiente")
+    hora_fin = Column(String)
+
+    estado1 = Column(String, default="Prestada")
+    estado2 = Column(String, default="En préstamo")

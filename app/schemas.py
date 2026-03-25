@@ -1,18 +1,21 @@
 from pydantic import BaseModel
 
-
 class SolicitudCreate(BaseModel):
-    solicitante: str
+    nombre_apellido: str
+    cedula: str
     correo: str
-    dependencia: str
+    cargo: str
+    proceso: str
     fecha_inicio: str
+    hora_inicio: str
     fecha_fin: str
-    motivo: str
+    hora_fin: str
 
 
 class Solicitud(SolicitudCreate):
     id: int
-    estado: str
+    estado1: str
+    estado2: str
 
     class Config:
         from_attributes = True

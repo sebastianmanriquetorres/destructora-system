@@ -1,16 +1,18 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
 
-
 def crear_solicitud(db: Session, solicitud: schemas.SolicitudCreate):
 
     nueva = models.Solicitud(
-        solicitante=solicitud.solicitante,
+        nombre_apellido=solicitud.nombre_apellido,
+        cedula=solicitud.cedula,
         correo=solicitud.correo,
-        dependencia=solicitud.dependencia,
+        cargo=solicitud.cargo,
+        proceso=solicitud.proceso,
         fecha_inicio=solicitud.fecha_inicio,
+        hora_inicio=solicitud.hora_inicio,
         fecha_fin=solicitud.fecha_fin,
-        motivo=solicitud.motivo
+        hora_fin=solicitud.hora_fin
     )
 
     db.add(nueva)

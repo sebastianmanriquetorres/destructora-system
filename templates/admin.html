@@ -1,29 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+<meta charset="UTF-8">
 <title>Panel Seguridad</title>
+
+<style>
+
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:20px;
+}
+
+h2{
+    text-align:center;
+}
+
+button{
+    padding:6px 10px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.btn-aprobar{
+    background:#28a745;
+    color:white;
+}
+
+.btn-rechazar{
+    background:#dc3545;
+    color:white;
+}
+
+.btn-actualizar{
+    background:#007bff;
+    color:white;
+    margin-bottom:15px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.table-container{
+    overflow-x:auto;
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:auto;
+}
+
+th, td{
+    padding:8px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+    white-space:nowrap; /*  evita que el texto salte */
+}
+
+th{
+    background:#343a40;
+    color:white;
+    position:relative; /*  necesario para resize */
+}
+
+/*  barra para arrastrar como Excel */
+th::after{
+    content:"";
+    position:absolute;
+    right:0;
+    top:0;
+    width:5px;
+    height:100%;
+    cursor:col-resize;
+}
+
+tr:hover{
+    background:#f1f1f1;
+}
+
+select{
+    padding:5px;
+    border-radius:5px;
+}
+
+</style>
+
 </head>
 
 <body>
 
+<div class="container">
+
 <h2>Panel Seguridad</h2>
 
-<button onclick="cargar()">Actualizar</button>
+<button class="btn-actualizar" onclick="cargar()">Actualizar</button>
 
-<table border="1">
+<div class="table-container">
+
+<table>
 
 <thead>
 <tr>
 <th>ID</th>
-<th>Solicitante</th>
-<th>Estado</th>
-<th>Accion</th>
+<th>Nombre</th>
+<th>Cédula</th>
+<th>Correo</th>
+<th>Cargo</th>
+<th>Proceso</th>
+<th>Fecha Inicio</th>
+<th>Hora Inicio</th>
+<th>Fecha Fin</th>
+<th>Hora Fin</th>
+<th>Estado 1</th>
+<th>Estado 2</th>
+<th>Acción</th>
 </tr>
 </thead>
 
 <tbody id="tabla"></tbody>
 
 </table>
+
+</div>
+</div>
 
 <script>
 
@@ -40,14 +148,37 @@ html+=`
 <tr>
 
 <td>${s.id}</td>
-<td>${s.solicitante}</td>
-<td>${s.estado}</td>
+<td>${s.nombre_apellido}</td>
+<td>${s.cedula}</td>
+<td>${s.correo}</td>
+<td>${s.cargo}</td>
+<td>${s.proceso}</td>
+<td>${s.fecha_inicio}</td>
+<td>${s.hora_inicio}</td>
+<td>${s.fecha_fin}</td>
+<td>${s.hora_fin}</td>
 
 <td>
+<select onchange="cambiarEstado1(${s.id}, this.value)">
+<option ${s.estado1=="Prestada"?"selected":""}>Prestada</option>
+<option ${s.estado1=="Devuelta"?"selected":""}>Devuelta</option>
+<option ${s.estado1=="En Curso"?"selected":""}>En Curso</option>
+<option ${s.estado1=="Finalizado"?"selected":""}>Finalizado</option>
+</select>
+</td>
 
-<button onclick="aprobar(${s.id})">Aprobar</button>
-<button onclick="rechazar(${s.id})">Rechazar</button>
+<td>
+<select onchange="cambiarEstado2(${s.id}, this.value)">
+<option ${s.estado2=="En préstamo"?"selected":""}>En préstamo</option>
+<option ${s.estado2=="Reprogramada"?"selected":""}>Reprogramada</option>
+<option ${s.estado2=="Apartada"?"selected":""}>Apartada</option>
+<option ${s.estado2=="Mantenimiento"?"selected":""}>Mantenimiento</option>
+</select>
+</td>
 
+<td>
+<button class="btn-aprobar" onclick="aprobar(${s.id})">Aprobar</button>
+<button class="btn-rechazar" onclick="rechazar(${s.id})">Rechazar</button>
 </td>
 
 </tr>
@@ -59,20 +190,37 @@ document.getElementById("tabla").innerHTML=html
 
 }
 
-async function aprobar(id){
+async function cambiarEstado1(id, valor){
 
+await fetch(`/estado1/${id}`,{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({estado1: valor})
+})
+
+}
+
+async function cambiarEstado2(id, valor){
+
+await fetch(`/estado2/${id}`,{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({estado2: valor})
+})
+
+}
+
+async function aprobar(id){
 await fetch(`/aprobar/${id}`,{method:"POST"})
 cargar()
-
 }
 
 async function rechazar(id){
-
 await fetch(`/rechazar/${id}`,{method:"POST"})
 cargar()
-
 }
 
+// 🔁 Auto carga
 cargar()
 
 </script>
