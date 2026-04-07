@@ -1,0 +1,98 @@
+/* Fondo general */
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f6f9;
+    margin:0;
+    padding:20px;
+}
+
+/* Contenedor */
+.container{
+    max-width:500px;
+    margin:auto;
+}
+
+/* Card tipo panel */
+.form-card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+}
+
+/* Título */
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* Inputs */
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:14px;
+}
+
+/* Focus elegante */
+input:focus, textarea:focus{
+    outline:none;
+    border-color:#007bff;
+    box-shadow:0px 0px 5px rgba(0,123,255,0.3);
+}
+
+/* Botón */
+button{
+    width:100%;
+    padding:10px;
+    background:#007bff;
+    color:white;
+    border:none;
+    border-radius:5px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+/* Labels */
+label{
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* Grid para fechas */
+.row{
+    display:flex;
+    gap:10px;
+}
+
+.row input{
+    flex:1;
+}
+
+/* Centrar y achicar inputs */
+.form-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    width: 90%;
+    max-width: 400px;
+}
+
+input, .row input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Opcional: si quieres los inputs más cortos verticalmente */
+input {
+    max-width: 100%;
+}
