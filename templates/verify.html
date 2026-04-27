@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación</title>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+<div class="page-shell">
+    <section class="content-card auth-card">
+        <header class="card-header">
+            <span class="eyebrow">Verificación de correo</span>
+            <h1>Verificación de cuenta</h1>
+        </header>
+
+        {% if message %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+
+        <div class="footer-note">
+            <p><a href="/login">Volver a iniciar sesión</a></p>
+        </div>
+    </section>
+</div>
+</body>
+</html>

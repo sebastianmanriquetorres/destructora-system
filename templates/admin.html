@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link rel="stylesheet" href="/static/admin.css">
+<meta charset="UTF-8">
+<title>Panel Seguridad</title>
+
+<body>
+
+<div class="container">
+
+<h2>Panel Seguridad</h2>
+
+<button class="btn-actualizar" onclick="cargar()">Actualizar</button>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Nombre</th>
+<th>Cédula</th>
+<th>Correo</th>
+<th>Cargo</th>
+<th>Proceso</th>
+<th>Fecha Inicio</th>
+<th>Hora Inicio</th>
+<th>Fecha Fin</th>
+<th>Hora Fin</th>
+<th>Estado 1</th>
+<th>Estado 2</th>
+<th>Acción</th>
+</tr>
+</thead>
+
+<tbody id="tabla"></tbody>
+
+</table>
+
+</div>
+</div>
+
+<script>
+
+async function cargar(){
+
+const res = await fetch("/solicitudes")
+const data = await res.json()
+
+let html=""
+
+data.forEach(s=>{
+
+html+=`
+<tr>
+
+<td>${s.id}</td>
+<td>${s.nombre_apellido}</td>
+<td>${s.cedula}</td>
+<td>${s.correo}</td>
+<td>${s.cargo}</td>
+<td>${s.proceso}</td>
+<td>${s.fecha_inicio}</td>
+<td>${s.hora_inicio}</td>
+<td>${s.fecha_fin}</td>
+<td>${s.hora_fin}</td>
+
+<td>
+<select onchange="cambiarEstado1(${s.id}, this.value)">
+<option ${s.estado1=="Prestada"?"selected":""}>Prestada</option>
+<option ${s.estado1=="Devuelta"?"selected":""}>Devuelta</option>
+<option ${s.estado1=="En Curso"?"selected":""}>En Curso</option>
+<option ${s.estado1=="Finalizado"?"selected":""}>Finalizado</option>
+</select>
+</td>
+
+<td>
+<select onchange="cambiarEstado2(${s.id}, this.value)">
+<option ${s.estado2=="En préstamo"?"selected":""}>En préstamo</option>
+<option ${s.estado2=="Reprogramada"?"selected":""}>Reprogramada</option>
+<option ${s.estado2=="Apartada"?"selected":""}>Apartada</option>
+<option ${s.estado2=="Mantenimiento"?"selected":""}>Mantenimiento</option>
+</select>
+</td>
+
+<td>
+<button class="btn-aprobar" onclick="aprobar(${s.id})">Aprobar</button>
+<button class="btn-rechazar" onclick="rechazar(${s.id})">Rechazar</button>
+</td>
+
+</tr>
+`
+
+})
+
+document.getElementById("tabla").innerHTML=html
+
+}
+
+async function cambiarEstado1(id, valor){
+
+await fetch(`/estado1/${id}`,{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({estado1: valor})
+})
+
+}
+
+async function cambiarEstado2(id, valor){
+
+await fetch(`/estado2/${id}`,{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({estado2: valor})
+})
+
+}
+
+async function aprobar(id){
+await fetch(`/aprobar/${id}`,{method:"POST"})
+cargar()
+}
+
+async function rechazar(id){
+await fetch(`/rechazar/${id}`,{method:"POST"})
+cargar()
+}
+
+// 🔁 Auto carga
+cargar()
+
+</script>
+
+</body>
+</html> 

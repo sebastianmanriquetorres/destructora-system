@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitud de Máquina Destructora</title>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+
+<div class="page-shell">
+    <section class="content-card">
+        <div class="page-top">
+            <div>
+                <span class="eyebrow">Solicitud de Máquina Destructora</span>
+                <h1>Sistema de Solicitudes</h1>
+                <p class="description">Completa el formulario para solicitar una máquina destructora de papel. Recibirás notificaciones por correo electrónico sobre el estado de tu solicitud.</p>
+            </div>
+        </div>
+
+        <form id="formSolicitud" class="request-form">
+            <div class="field-row">
+                <div class="field-group">
+                    <label for="nombre_apellido">Nombre y Apellido</label>
+                    <input type="text" id="nombre_apellido" placeholder="Nombre completo" required>
+                </div>
+                <div class="field-group">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo" placeholder="correo@ejemplo.com" required>
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div class="field-group">
+                    <label for="cedula">Cédula</label>
+                    <input type="number" id="cedula" placeholder="Cédula" required>
+                </div>
+                <div class="field-group">
+                    <label for="cargo">Cargo</label>
+                    <input type="text" id="cargo" placeholder="Cargo" required>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label for="proceso">Proceso</label>
+                <input type="text" id="proceso" placeholder="Proceso" required>
+            </div>
+
+            <div class="field-row">
+                <div class="field-group">
+                    <label for="fecha_inicio">Fecha inicio</label>
+                    <input type="date" id="fecha_inicio" required>
+                </div>
+                <div class="field-group">
+                    <label for="hora_inicio">Hora inicio</label>
+                    <input type="time" id="hora_inicio" required>
+                </div>
+            </div>
+
+            <div class="field-row">
+                <div class="field-group">
+                    <label for="fecha_fin">Fecha fin</label>
+                    <input type="date" id="fecha_fin" required>
+                </div>
+                <div class="field-group">
+                    <label for="hora_fin">Hora fin</label>
+                    <input type="time" id="hora_fin" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Enviar Solicitud</button>
+        </form>
+    </section>
+</div>
+
+<script src="/static/script.js" defer></script>
+</body>
+</html>
